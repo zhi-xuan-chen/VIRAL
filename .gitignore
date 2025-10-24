@@ -2,3 +2,5 @@
 llava.egg-info
 wandb
 playground/*
+
+.vscode/
