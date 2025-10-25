@@ -6,3 +6,5 @@ playground/*
 .vscode/
 
 **/__pycache__/
+
+slurm
