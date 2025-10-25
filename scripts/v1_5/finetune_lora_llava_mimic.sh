@@ -2,7 +2,7 @@
 
 export WANDB_PROJECT=VIRAL
 export WANDB_ENTITY=zchenhi
-export CUDA_VISIBLE_DEVICES=0,1
+export CUDA_VISIBLE_DEVICES=1,2
 
 deepspeed --include localhost:0,1 --master_port=29503 llava/train/train_mem.py \
     --lora_enable True --lora_r 128 --lora_alpha 256 --mm_projector_lr 2e-5 \
@@ -12,7 +12,7 @@ deepspeed --include localhost:0,1 --master_port=29503 llava/train/train_mem.py \
     --data_path /jhcnas5/chenzhixuan/checkpoints/VIRAL/mimic_findings_train.json \
     --image_folder /jhcnas4/kyle/Xray/DATA/MIMIC-CXR/files \
     --vision_tower openai/clip-vit-large-patch14-336 \
-    --pretrain_mm_mlp_adapter ./checkpoints/llava-v1.5-7b-pretrain/mm_projector.bin \
+    --pretrain_mm_mlp_adapter /home/chenzhixuan/Workspace/VIRAL/checkpoints/llava-v1.5-7b-pretrain/mm_projector.bin \
     --mm_projector_type mlp2x_gelu \
     --mm_vision_select_layer -2 \
     --mm_use_im_start_end False \
@@ -20,7 +20,7 @@ deepspeed --include localhost:0,1 --master_port=29503 llava/train/train_mem.py \
     --image_aspect_ratio pad \
     --group_by_modality_length True \
     --bf16 True \
-    --output_dir /jhcnas5/chenzhixuan/checkpoints/VIRAL/outputs/llava-v1.5-7b-instruct-viral-mimic \
+    --output_dir /jhcnas5/chenzhixuan/checkpoints/VIRAL/outputs/llava-v1.5-7b-instruct-llava-mimic \
     --num_train_epochs 5 \
     --per_device_train_batch_size 4 \
     --per_device_eval_batch_size 4 \

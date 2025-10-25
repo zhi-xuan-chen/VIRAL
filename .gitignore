@@ -4,3 +4,5 @@ wandb
 playground/*
 
 .vscode/
+
+**/__pycache__/
