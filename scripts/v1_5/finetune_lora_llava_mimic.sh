@@ -2,9 +2,8 @@
 
 export WANDB_PROJECT=VIRAL
 export WANDB_ENTITY=zchenhi
-export CUDA_VISIBLE_DEVICES=1,2
 
-deepspeed --include localhost:0,1 --master_port=29503 llava/train/train_mem.py \
+deepspeed --include localhost:0,1 --master_port=29504 llava/train/train_mem.py \
     --lora_enable True --lora_r 128 --lora_alpha 256 --mm_projector_lr 2e-5 \
     --deepspeed ./scripts/zero2.json \
     --model_name_or_path lmsys/vicuna-7b-v1.5 \
@@ -20,11 +19,11 @@ deepspeed --include localhost:0,1 --master_port=29503 llava/train/train_mem.py \
     --image_aspect_ratio pad \
     --group_by_modality_length True \
     --bf16 True \
-    --output_dir /jhcnas5/chenzhixuan/checkpoints/VIRAL/outputs/llava-v1.5-7b-instruct-llava-mimic \
+    --output_dir /jhcnas5/chenzhixuan/checkpoints/VIRAL/outputs/llava-v1.5-7b-instruct-llava-mimic_new \
     --num_train_epochs 5 \
-    --per_device_train_batch_size 4 \
-    --per_device_eval_batch_size 4 \
-    --gradient_accumulation_steps 4 \
+    --per_device_train_batch_size 6 \
+    --per_device_eval_batch_size 6 \
+    --gradient_accumulation_steps 10 \
     --evaluation_strategy "no" \
     --save_strategy "steps" \
     --save_steps 1000 \

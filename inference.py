@@ -1,4 +1,5 @@
 ﻿import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 import argparse
 import torch
 from PIL import Image
@@ -12,13 +13,13 @@ from llava.utils import disable_torch_init
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model-path", type=str, default="./checkpoints/viral-7b")
-    parser.add_argument("--temperature", type=float, default=0.1)
-    parser.add_argument("--top_p", type=float, default=0.7)
-    parser.add_argument("--max-new-tokens", type=int, default=100)
-    parser.add_argument("--image-path", type=str, default="./images/llava_logo.png")
+    parser.add_argument("--model-path", type=str, default="/jhcnas5/chenzhixuan/checkpoints/VIRAL/outputs/llava-v1.5-7b-instruct-llava-mimic/checkpoint-5000")
+    parser.add_argument("--temperature", type=float, default=0.2)
+    parser.add_argument("--top_p", type=float, default=0.9)
+    parser.add_argument("--max-new-tokens", type=int, default=400)
+    parser.add_argument("--image-path", type=str, default="/jhcnas4/kyle/Xray/DATA/MIMIC-CXR/files/p10/p10000032/s50414267/02aa804e-bde0afdd-112c0b34-7bc16630-4e384014.jpg")
     parser.add_argument("--prompt", type=str,
-                        default="Is the lizard facing left or right from the camera's perspective?")
+                        default="This is a chest X-ray image. Please generate a detailed radiology findings report describing any observed abnormalities or normal structures.")
     return parser.parse_args()
 
 
@@ -73,7 +74,9 @@ def main():
             max_new_tokens=args.max_new_tokens,
         )
 
-    output_text = tokenizer.decode(outputs.sequences[0], skip_special_tokens=True)
+    # 兼容返回 Tensor（老默认）或包含 sequences 的对象（return_dict_in_generate=True）
+    sequences = outputs if isinstance(outputs, torch.Tensor) else outputs.sequences
+    output_text = tokenizer.decode(sequences[0], skip_special_tokens=True)
 
     if conv.sep_style == SeparatorStyle.TWO:
         response = output_text.split(conv.sep2)[-1].strip()
