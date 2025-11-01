@@ -10,16 +10,16 @@ import statistics
 
 prompts = [
      "This is a chest X-ray image. Please generate a detailed radiology findings report describing any observed abnormalities or normal structures.",
-    "Analyze the following chest X-ray and produce a professional findings report summarizing key observations.",
-    "Generate a concise radiology-style findings report for this chest X-ray image, noting both normal and abnormal features.",
-    "Please review this chest X-ray and provide a structured findings report as a radiologist would.",
-    "From this chest X-ray, draft a clinical findings report describing the visible anatomical details and any abnormalities.",
-    "Examine this chest X-ray image and write a formal findings section similar to what appears in a radiology report.",
-    "Create a descriptive findings report for this chest X-ray, identifying any notable pathologies or confirming normal appearance.",
-    "Based on the provided chest X-ray, generate a findings paragraph outlining radiological observations.",
-    "Interpret this chest X-ray and summarize your findings in a standard medical imaging report format.",
-    "Please describe the radiologic findings visible in this chest X-ray image in a professional, report-style summary.",
-    "Review this chest X-ray image and compose a findings report that highlights relevant diagnostic details."
+    # "Analyze the following chest X-ray and produce a professional findings report summarizing key observations.",
+    # "Generate a concise radiology-style findings report for this chest X-ray image, noting both normal and abnormal features.",
+    # "Please review this chest X-ray and provide a structured findings report as a radiologist would.",
+    # "From this chest X-ray, draft a clinical findings report describing the visible anatomical details and any abnormalities.",
+    # "Examine this chest X-ray image and write a formal findings section similar to what appears in a radiology report.",
+    # "Create a descriptive findings report for this chest X-ray, identifying any notable pathologies or confirming normal appearance.",
+    # "Based on the provided chest X-ray, generate a findings paragraph outlining radiological observations.",
+    # "Interpret this chest X-ray and summarize your findings in a standard medical imaging report format.",
+    # "Please describe the radiologic findings visible in this chest X-ray image in a professional, report-style summary.",
+    # "Review this chest X-ray image and compose a findings report that highlights relevant diagnostic details."
 ]
 
 

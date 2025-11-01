@@ -1,11 +1,17 @@
 import os
 from .clip_encoder import CLIPVisionTower, CLIPVisionTowerS2
+from .timm_vit_encoder import TimmVisionTower
 
 
 def build_vision_tower(vision_tower_cfg, **kwargs):
     vision_tower = getattr(vision_tower_cfg, 'mm_vision_tower', getattr(vision_tower_cfg, 'vision_tower', None))
+    print("Vision tower: ", vision_tower)
     is_absolute_path_exists = os.path.exists(vision_tower)
     use_s2 = getattr(vision_tower_cfg, 's2', False)
+    # 特判：用户希望当 vision_tower == 'xrclip_vit_base_patch16_224' 时，使用自定义 timm ViT
+    if vision_tower == 'xrclip_vit_base_patch16_224':
+        print("Building XRCLIP vision tower")
+        return TimmVisionTower(delay_load=kwargs.get('delay_load', False))
     if is_absolute_path_exists or vision_tower.startswith("openai") or vision_tower.startswith("laion") or "ShareGPT4V" in vision_tower:
         if use_s2:
             return CLIPVisionTowerS2(vision_tower, args=vision_tower_cfg, **kwargs)
