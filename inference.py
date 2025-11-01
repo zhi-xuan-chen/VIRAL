@@ -13,7 +13,7 @@ from llava.utils import disable_torch_init
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model-path", type=str, default="/jhcnas5/chenzhixuan/checkpoints/VIRAL/outputs/llava-v1.5-7b-instruct-llava-mimic/checkpoint-5000")
+    parser.add_argument("--model-path", type=str, default="/jhcnas5/chenzhixuan/checkpoints/VIRAL/outputs/llava-v1.5-7b-instruct-viral-mimic/checkpoint-9000")
     parser.add_argument("--temperature", type=float, default=0.2)
     parser.add_argument("--top_p", type=float, default=0.9)
     parser.add_argument("--max-new-tokens", type=int, default=400)
