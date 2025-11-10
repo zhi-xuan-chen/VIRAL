@@ -209,6 +209,9 @@ def safe_save_model_for_hf_trainer(trainer: transformers.Trainer,
     if trainer.deepspeed:
         torch.cuda.synchronize()
         trainer.save_model(output_dir)
+        # 确保保存 config.json
+        if trainer.args.local_rank == 0 or trainer.args.local_rank == -1:
+            trainer.model.config.save_pretrained(output_dir)
         return
 
     state_dict = trainer.model.state_dict()
@@ -219,6 +222,9 @@ def safe_save_model_for_hf_trainer(trainer: transformers.Trainer,
         }
         del state_dict
         trainer._save(output_dir, state_dict=cpu_state_dict)  # noqa
+        # 确保保存 config.json
+        if trainer.args.local_rank == 0 or trainer.args.local_rank == -1:
+            trainer.model.config.save_pretrained(output_dir)
 
 
 def smart_tokenizer_and_embedding_resize(
